@@ -30,4 +30,3 @@ test.describe.parallel('GUI test', () => {
         await expect(page).not.toHaveURL(myAccountPage.url);
     });
 })
-
