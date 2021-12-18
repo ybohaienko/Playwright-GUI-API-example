@@ -12,61 +12,45 @@ test.describe('REST API test', () => {
     });
 
     test('check no "whiskey" and "bourbon" in cocktails in response body', async () => {
-        let includesWhiskey: boolean = false;
-        let includesBourbon: boolean = false;
-
-        drinks.forEach(drink => {
-            const strDrink = drink.strDrink.toLowerCase();
-            if (strDrink.includes("whiskey")) {
-                includesWhiskey = true;
-                return;
-            }
-            if (strDrink.includes("bourbon")) {
-                includesBourbon = true;
-                return;
-            }
-        });
-
-        expect(includesBourbon).toBeFalsy();
-        expect(includesWhiskey).toBeFalsy();
+        const includedWhiskeys = drinks.filter(drink =>
+            drink
+                .strDrink
+                .toLowerCase()
+                .includes('whiskey'));
+        const includedBourbons = drinks.filter(drink =>
+            drink
+                .strDrink
+                .toLowerCase()
+                .includes('bourbon'));
+        expect(!!includedWhiskeys.length).toBeFalsy();
+        expect(!!includedBourbons.length).toBeFalsy();
     })
 
     test('check "vodka" presents in all cocktails in response body', async () => {
-        let includesVodka: boolean = true;
-
-        drinks.forEach(drink => {
-            if (!drink.strDrink.toLowerCase().includes("vodka")) {
-                includesVodka = false;
-                return;
-            }
-        });
-
-        expect(includesVodka).toBeTruthy();
+        const includedVodkas = drinks.filter(drink =>
+            !drink
+                .strDrink
+                .toLowerCase()
+                .includes('vodka'));
+        expect(!!includedVodkas.length).toBeFalsy();
     })
 
     test('check IT instruction presents in all cocktails in response body', async () => {
-        let existsItInstruction: boolean = true;
-
-        drinks.forEach(drink => {
-            if (drink.strInstructionsIT === null) {
-                existsItInstruction = false;
-                return;
-            }
-        });
-
-        expect(existsItInstruction).toBeTruthy();
+        const existedItInstructions = drinks.filter(drink =>
+            drink.strInstructionsIT === null);
+        expect(!!existedItInstructions.length).toBeFalsy();
     })
 
     test('check amount of cocktails is the same in multiple calls response body', async ({request}) => {
         const numCocktails = drinks.length;
+        const numOfTries = 3;
         let sameNum: boolean = true;
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < numOfTries; i++) {
             const response = await request.get(url);
             const body = JSON.parse(await response.text());
             sameNum = numCocktails == body.drinks.length;
         }
-
         expect(sameNum).toBeTruthy();
     })
 });
