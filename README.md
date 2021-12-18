@@ -27,10 +27,10 @@ npx playwright test
 npx playwright test tests/gui.spec.ts --headed
 ```
 
-- run GUI tests with specific browser (options: `chromium`, `firefox`, `webkit`)
+- run GUI tests with specific browser (projects: `chromium`, `firefox`, `webkit`)
 
 ```
-npx playwright test tests/gui.spec.ts --project={{OPTION}}
+npx playwright test tests/gui.spec.ts --project={{PROJECT}}
 ```
 
 - run API tests
