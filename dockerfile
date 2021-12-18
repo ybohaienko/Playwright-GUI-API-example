@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine
+FROM mcr.microsoft.com/playwright:focal
 VOLUME /tmp
 COPY . PlaywrightProject/
 ENTRYPOINT ["npm","install"]
