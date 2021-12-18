@@ -2,14 +2,14 @@ import {Locator, Page} from '@playwright/test';
 
 export class MyAccountPage {
     readonly page: Page;
-    readonly btnSignOut: Locator;
+    readonly buttonSignOut: Locator;
 
     readonly url: string = 'index.php?controller=my-account';
     readonly urlSighOut: string = 'index.php?mylogout=';
 
     constructor(page: Page) {
         this.page = page;
-        this.btnSignOut = page.locator('.logout');
+        this.buttonSignOut = page.locator('.logout');
     }
 
     async goTo() {
@@ -17,7 +17,7 @@ export class MyAccountPage {
     }
 
     async signOutViaGui() {
-        await this.btnSignOut.click();
+        await this.buttonSignOut.click();
     }
 
     async signOutViaUrl() {

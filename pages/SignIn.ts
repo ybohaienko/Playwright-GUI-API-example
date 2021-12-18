@@ -2,17 +2,17 @@ import { Locator, Page } from '@playwright/test';
 
 export class SignInPage {
     readonly page: Page;
-    readonly nptEmail: Locator;
-    readonly nptPassword: Locator;
-    readonly btnSignIn: Locator;
+    readonly inputEmail: Locator;
+    readonly inputPassword: Locator;
+    readonly buttonSignIn: Locator;
 
     readonly url: string = 'index.php?controller=authentication&back=my-account';
 
     constructor(page: Page) {
         this.page = page;
-        this.nptEmail = page.locator('#email');
-        this.nptPassword = page.locator('#passwd');
-        this.btnSignIn = page.locator('#SubmitLogin');
+        this.inputEmail = page.locator('#email');
+        this.inputPassword = page.locator('#passwd');
+        this.buttonSignIn = page.locator('#SubmitLogin');
     }
 
     async goTo() {
@@ -20,8 +20,8 @@ export class SignInPage {
     }
 
     async signIn(email: string, password: string) {
-        await this.nptEmail.fill(email);
-        await this.nptPassword.fill(password);
-        await this.btnSignIn.click();
+        await this.inputEmail.fill(email);
+        await this.inputPassword.fill(password);
+        await this.buttonSignIn.click();
     }
 }
