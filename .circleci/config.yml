@@ -5,7 +5,8 @@ jobs:
       PLAYWRIGHT_HTML_REPORT: /tmp/playwright-report
       IMAGE_NAME: playwright-gui-api-example
     docker:
-      - image: mcr.microsoft.com/playwright:focal
+      - image: circleci/openjdk:8-jdk
+#      - image: mcr.microsoft.com/playwright:focal
     steps:
       - checkout
       - setup_remote_docker
