@@ -12,7 +12,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Build Docker image
-          command: service docker start && docker build -t mduuude/$IMAGE_NAME:latest . && docker-compose up -d
+          command: docker build -t mduuude/$IMAGE_NAME:latest . && docker-compose up -d
       - run:
           name: TEST STAGE
           command: docker ps -a
