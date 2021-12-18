@@ -6,17 +6,12 @@ const testUserEmail = 'valeriw384@wolfpat.com';
 const testUserPassword = 'testpass';
 
 test.describe.parallel('GUI test', () => {
-    let signInPage: any;
-    let myAccountPage: any;
-
-    test.beforeAll(async ({browser}) => {
-        const context = await browser.newContext();
-        const page = await context.newPage();
-        signInPage = new SignInPage(page);
-        myAccountPage = new MyAccountPage(page);
-    });
+    let signInPage: SignInPage;
+    let myAccountPage: MyAccountPage;
 
     test.beforeEach(async ({page}) => {
+        signInPage = new SignInPage(page);
+        myAccountPage = new MyAccountPage(page);
         await signInPage.goTo();
         await signInPage.signIn(testUserEmail, testUserPassword);
         await expect(page).toHaveURL(myAccountPage.url);

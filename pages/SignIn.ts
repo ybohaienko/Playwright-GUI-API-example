@@ -6,7 +6,7 @@ export class SignInPage {
     readonly nptPassword: Locator;
     readonly btnSignIn: Locator;
 
-    public url: string = 'index.php?controller=authentication&back=my-account';
+    readonly url: string = 'index.php?controller=authentication&back=my-account';
 
     constructor(page: Page) {
         this.page = page;

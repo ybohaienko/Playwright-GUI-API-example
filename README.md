@@ -1,29 +1,58 @@
 # Playwright-GUI-API-example
 
-## The test project for Playwright GUI/API testing demo purposes
-
-The app crawls website nytimes.com for headers of given topic and returns in console
-AND creates separate .csv documents with:
-- Dictionary of found relevant words in topics and their usage
-- Denormalized probability of each certificated word
-- Normalized probability of each certificated word
-- Verification data to check sample analysis
+### The test project for Playwright GUI/API testing demo purposes
 
 ## Prerequisites
+
 * **node >= 12.22.7**;
 * **npm >= 6.14.15**
-* **playwright >= 1.17.1**
 
 ## Use:
-- to run 
+
+- setup project:
+
 ```
-mvn clean package
+npm i -D @playwright/test && npx playwright install && npx playwright install-deps
 ```
-- to execute .jar file with the app
+
+- run GUI tests with all three browsers headlessly AND API tests
+
 ```
-java -jar LR2_topic_classifier-0.0.1-SNAPSHOT.jar
+npx playwright test
 ```
-- to execute .jar file for optional topics specify comma separated topics in double quotes
+
+- run GUI tests with all three browsers in headed mode
+
 ```
-java -jar LR2_topic_classifier-0.0.1-SNAPSHOT.jar --topics="some,foo,bar"
+npx playwright test tests/gui.spec.ts --headed
+```
+
+- run GUI tests with specific browser (options: chromium, firefox, webkit)
+
+```
+npx playwright test tests/gui.spec.ts --project={{OPTION}}
+```
+
+- run API tests
+
+```
+npx playwright test tests/api.spec.ts --project=chromium
+```
+
+## Reporting:
+
+- Reports are automatically created in `<PROJECT_ROOT>/playwright-report` directory;
+- Each CircleCI build artefacts contain two separate reports in **Build details > Artifacts**:
+  `api-report/index.html`, `gui-report/index.html`
+
+## Parallelism:
+
+- By default, cross-browser tests execution done concurrently and independently for each browser (project).
+- Moreover, GUI tests (considered as 'slow') are written to be executed in parallel to achieve the best execution time.
+- Each process is executed by worker (OS process), their number could be limited using `--workers=` option in
+  above-mentioned run commands.
+- Current number of workers is:
+
+```
+numOfProjects * numOfGuiTests = 3 * 2 = 6
 ```

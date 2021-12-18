@@ -12,8 +12,8 @@ test.describe('REST API test', () => {
     });
 
     test('check no "whiskey" and "bourbon" in cocktails in response body', async () => {
-        let includesWhiskey = false;
-        let includesBourbon = false;
+        let includesWhiskey: boolean = false;
+        let includesBourbon: boolean = false;
 
         drinks.forEach(drink => {
             const strDrink = drink.strDrink.toLowerCase();
@@ -32,7 +32,7 @@ test.describe('REST API test', () => {
     })
 
     test('check "vodka" presents in all cocktails in response body', async () => {
-        let includesVodka = true;
+        let includesVodka: boolean = true;
 
         drinks.forEach(drink => {
             if (!drink.strDrink.toLowerCase().includes("vodka")) {
@@ -45,7 +45,7 @@ test.describe('REST API test', () => {
     })
 
     test('check IT instruction presents in all cocktails in response body', async () => {
-        let existsItInstruction = true;
+        let existsItInstruction: boolean = true;
 
         drinks.forEach(drink => {
             if (drink.strInstructionsIT === null) {
@@ -57,9 +57,9 @@ test.describe('REST API test', () => {
         expect(existsItInstruction).toBeTruthy();
     })
 
-    test('check amount of cocktails is the same in response body', async ({request}) => {
+    test('check amount of cocktails is the same in multiple calls response body', async ({request}) => {
         const numCocktails = drinks.length;
-        let sameNum = true;
+        let sameNum: boolean = true;
 
         for (let i = 0; i < 10; i++) {
             const response = await request.get(url);

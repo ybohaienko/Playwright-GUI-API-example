@@ -1,26 +1,28 @@
 version: 2
 jobs:
   build:
-    environment:
-      PLAYWRIGHT_HTML_REPORT: /tmp/playwright-report
-      IMAGE_NAME: playwright-gui-api-example
     docker:
-      - image: circleci/openjdk:8-jdk
-#      - image: mcr.microsoft.com/playwright:focal
+      - image: mcr.microsoft.com/playwright:focal
     steps:
       - checkout
-      - setup_remote_docker
       - run:
-          name: Build&Run Docker image
-          command: docker build -t mduuude/$IMAGE_NAME:latest . && docker run -d mduuude/$IMAGE_NAME:latest
+          name: Set up project
+          command: |
+            npm i -D @playwright/test && 
+            npx playwright install && 
+            npx playwright install-deps
       - run:
-          name: TEST STAGE
-          command: docker ps -a
-      - run:
-          name: TEST STAGE
-          command: docker ps -a
+          name: Run API tests
+          command: npx playwright test tests/api.spec.ts --project=chromium
       - store_artifacts:
-          path: /tmp/playwright-report
+          path: ./playwright-report
+          destination: api-report
+      - run:
+          name: Run GUI tests
+          command: npx playwright test tests/gui.spec.ts
+      - store_artifacts:
+          path: ./playwright-report
+          destination: gui-report
 workflows:
   version: 2
   build-master:

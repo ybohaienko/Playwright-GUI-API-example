@@ -4,11 +4,10 @@ const config: PlaywrightTestConfig = {
     testDir: 'tests',
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 2 : 0,
-    timeout: 10000,
+    timeout: 30000,
     use: {
         trace: 'on-first-retry',
         baseURL: 'http://automationpractice.com/',
-        screenshot: 'only-on-failure',
     },
     reporter: [['html', {open: 'never'}]],
     projects: [
