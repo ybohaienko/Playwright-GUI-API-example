@@ -51,8 +51,4 @@ npx playwright test tests/api.spec.ts --project=chromium
 - Moreover, GUI tests (considered as 'slow') are written to be executed in parallel to achieve the best execution time.
 - Each process is executed by worker (OS process), their number could be limited using `--workers=` option in
   above-mentioned run commands.
-- Current number of workers is:
-
-```
-numOfProjects * numOfGuiTests = 3 * 2 = 6
-```
+- Maximum number of workers is: `numOfProjects * numOfGuiTests`, currently: `3 * 2 = 6`
