@@ -12,7 +12,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Build Docker image
-          command: docker build -t mduuude/$IMAGE_NAME:latest . && docker run -d mduuude/$IMAGE_NAME:latest && docker exec -it bash "cat /tmp"
+          command: docker build -t mduuude/$IMAGE_NAME:latest . && docker run -d mduuude/$IMAGE_NAME:latest && docker exec -it playwright-gui-api-example bash "cat /tmp"
       - run:
           name: TEST STAGE
           command: docker ps -a
