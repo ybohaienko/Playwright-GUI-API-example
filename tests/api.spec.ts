@@ -22,8 +22,8 @@ test.describe('REST API test', () => {
                 .strDrink
                 .toLowerCase()
                 .includes('bourbon'));
-        expect(!!includedWhiskeys.length).toBeFalsy();
-        expect(!!includedBourbons.length).toBeFalsy();
+        expect(includedWhiskeys).toHaveLength(0);
+        expect(includedBourbons).toHaveLength(0);
     })
 
     test('check "vodka" presents in all cocktails in response body', async () => {
@@ -32,25 +32,22 @@ test.describe('REST API test', () => {
                 .strDrink
                 .toLowerCase()
                 .includes('vodka'));
-        expect(!!includedVodkas.length).toBeFalsy();
+        expect(includedVodkas).toHaveLength(0);
     })
 
     test('check IT instruction presents in all cocktails in response body', async () => {
         const existedItInstructions = drinks.filter(drink =>
             drink.strInstructionsIT === null);
-        expect(!!existedItInstructions.length).toBeFalsy();
+        expect(existedItInstructions).toHaveLength(0);
     })
 
     test('check amount of cocktails is the same in multiple calls response body', async ({request}) => {
         const numCocktails = drinks.length;
         const numOfTries = 3;
-        let sameNum: boolean = true;
-
         for (let i = 0; i < numOfTries; i++) {
             const response = await request.get(url);
             const body = JSON.parse(await response.text());
-            sameNum = numCocktails == body.drinks.length;
+            expect(numCocktails).toHaveLength(body.drinks.length);
         }
-        expect(sameNum).toBeTruthy();
     })
 });
