@@ -42,12 +42,11 @@ test.describe('REST API test', () => {
     })
 
     test('check amount of cocktails is the same in multiple calls response body', async ({request}) => {
-        const numCocktails = drinks.length;
         const numOfTries = 3;
         for (let i = 0; i < numOfTries; i++) {
             const response = await request.get(url);
             const body = JSON.parse(await response.text());
-            expect(numCocktails).toHaveLength(body.drinks.length);
+            expect(drinks).toHaveLength(body.drinks.length);
         }
     })
 });
